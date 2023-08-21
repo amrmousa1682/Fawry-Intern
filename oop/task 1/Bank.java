@@ -1,15 +1,19 @@
 import java.util.ArrayList;
 
 public class Bank {
-    ArrayList<Account> accounts = new ArrayList<>();
+    ArrayList<Account> accounts;
 
     public Account addAccount(String accountHolderName, double balance) throws Exception {
+        if (accounts == null)
+            accounts = new ArrayList<>();
         Account newAccount = new SavingsAccount(accountHolderName, balance);
         accounts.add(newAccount);
         return newAccount;
     }
 
     private Account findAccount(long accountNumber) throws Exception {
+        if (accounts == null)
+            throw new Exception("account number is not exist");
         Account accountRef = null;
         for (Account account : accounts) {
             if (account.getAccountNumber() == accountNumber) {
@@ -17,7 +21,8 @@ public class Bank {
                 break;
             }
         }
-        if (accountRef == null) throw new Exception("account number is not exist");
+        if (accountRef == null)
+            throw new Exception("account number is not exist");
         return accountRef;
     }
 
@@ -34,6 +39,6 @@ public class Bank {
     }
 
     public void displayCalculatedInterest(long accountNumber) throws Exception {
-        System.out.println("interest : "+ ((SavingsAccount) findAccount(accountNumber)).calculateInterest());
+        System.out.println("interest : " + ((SavingsAccount) findAccount(accountNumber)).calculateInterest());
     }
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class ShoppingCart {
     private double totalCost = 0;
-    private final ArrayList<CartItem> items = new ArrayList<>();
+    private ArrayList<CartItem> items;
 
     public double getTotalCost() {
         return totalCost;
@@ -13,9 +13,11 @@ public class ShoppingCart {
     }
 
     public void addItem(Product product) {
+        if (items == null)
+            this.items = new ArrayList<>();
         boolean found = false;
         for (CartItem cartItem : items) {
-            if (cartItem.getProduct() == product) {
+            if (cartItem.getProduct().id == product.id) {
                 cartItem.increaseAmount();
                 found = true;
                 break;
@@ -28,9 +30,11 @@ public class ShoppingCart {
     }
 
     public void removeItem(Product product) throws Exception {
+        if (items == null)
+            throw new Exception(product.getName() + " not found in cart");
         boolean found = false;
         for (CartItem cartItem : items) {
-            if (cartItem.getProduct() == product) {
+            if (cartItem.getProduct().id == product.id) {
                 found = true;
                 cartItem.decreaseAmount();
                 if (cartItem.getAmount() == 0) {
@@ -39,8 +43,8 @@ public class ShoppingCart {
                 }
             }
         }
-        if(!found){
-            throw new Exception(product.getName()+" not found in cart");
+        if (!found) {
+            throw new Exception(product.getName() + " not found in cart");
         }
         totalCost -= product.getPrice();
     }
