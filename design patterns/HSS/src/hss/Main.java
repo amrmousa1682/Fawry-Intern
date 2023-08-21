@@ -11,7 +11,7 @@ import hss.sensors.SensorsCompanyType;
 
 public class Main {
     public static void main(String[] args) {
-        RemoteControl remoteControl=new RemoteControl();
+        RemoteControl remoteControl = new RemoteControl();
 
         SensorsFactory smokeSensorFactory = new SmokeSensorFactory();
         SensorsFactory motionSensorFactory = new MotionSensorFactory();
@@ -19,14 +19,16 @@ public class Main {
         Sensor smokeSensor = smokeSensorFactory.getSensor(SensorsCompanyType.COMPANY_A);
         smokeSensor.detect();
 
-        remoteControl.setCommand(new AlarmDeactivateCommand());
+        remoteControl.setCommand(new WaterSprinklerDeactivateCommand());
         remoteControl.press();
+
 
         Sensor motionSensor = motionSensorFactory.getSensor(SensorsCompanyType.COMPANY_B);
         motionSensor.detect();
 
-        remoteControl.setCommand(new WaterSprinklerDeactivateCommand());
+        remoteControl.setCommand(new AlarmDeactivateCommand());
         remoteControl.press();
+
 
     }
 }
