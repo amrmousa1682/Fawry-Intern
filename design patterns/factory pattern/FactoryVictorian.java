@@ -1,7 +1,7 @@
 public class FactoryVictorian implements AbstarctFactory {
 
   @Override
-  public Furniture creaFurniture(Types type) {
+  public Furniture createFurniture(Types type) {
     switch (type) {
       case CHAIR:
         return new VictorianChair();
